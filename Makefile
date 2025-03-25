@@ -16,7 +16,6 @@ define Package/$(PKG_NAME)
   TITLE:=Zero files
   MAINTAINER:=oppen321 <zj18139624826@gmail.com>
   DEFAULT:=y
-  HIDDEN:=y
   DEPENDS:=+luci-theme-argon
 endef
 
