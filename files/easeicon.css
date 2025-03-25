@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "easeicon";
+  src: url('iconfont.woff2?t=1642756089463') format('woff2'),
+       url('iconfont.woff?t=1642756089463') format('woff'),
+       url('iconfont.ttf?t=1642756089463') format('truetype');
+}
+
+.easeicon {
+  font-family: "easeicon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.eicon-store:before {
+  content: "\e60f";
+}
+
+.eicon-docker:before {
+  content: "\e659";
+}
+
+.eicon-network:before {
+  content: "\ecc7";
+}
+
+.eicon-dashboard:before {
+  content: "\e664";
+}
+
+.main>.main-left>.nav>li.slide>.menu[data-title=NetworkGuide]:before,
+.main>.main-left>.nav>li>a[data-title=NetworkGuide]:before {
+    font-family: 'easeicon' !important;
+    content: "\ecc7" !important;
+    color: #fb6340;
+}
