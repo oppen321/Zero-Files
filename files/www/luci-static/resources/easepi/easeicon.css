@@ -1,28 +1,27 @@
 @font-face {
-  font-family: "zeroicon"; /* 自定义字体名称 */
-  src: url('<%=resource%>/zero-files/iconfont.woff2?t=1712000000000') format('woff2'),
-       url('<%=resource%>/zero-files/iconfont.woff?t=1712000000000') format('woff'),
-       url('<%=resource%>/zero-files/iconfont.ttf?t=1712000000000') format('truetype');
+  font-family: "easeicon"; /* Project id 3156136 */
+  src: url('iconfont.woff2?t=1642756089463') format('woff2'),
+       url('iconfont.woff?t=1642756089463') format('woff'),
+       url('iconfont.ttf?t=1642756089463') format('truetype');
 }
 
-.zeroicon {
-  font-family: "zeroicon" !important;
+.easeicon {
+  font-family: "easeicon" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 定义蜂窝网络图标 */
+/* 添加蜂窝网络图标 */
 .eicon-cellular:before {
-  content: "\e6b0"; /* 你需要找到蜂窝网络的 Unicode 码 */
-  color: #34c759; /* 绿色，代表信号 */
+  content: "\e872";  /* 使用 Unicode &#xe872; */
 }
 
-/* 侧边栏蜂窝网络菜单图标 */
-.main>.main-left>.nav>li.slide>.menu[data-title=Cellular]:before,
-.main>.main-left>.nav>li>a[data-title=Cellular]:before {
-    font-family: 'zeroicon' !important;
-    content: "\e6b0" !important; /* 这里也要用蜂窝网络的 Unicode */
-    color: #34c759;
+/* 为蜂窝网络添加样式 */
+.main>.main-left>.nav>li.slide>.menu[data-title=CellularNetwork]:before,
+.main>.main-left>.nav>li>a[data-title=CellularNetwork]:before {
+    font-family: 'easeicon' !important;
+    content: "\e872" !important;
+    color: #11cdef; /* 橙色，可根据需要调整 */
 }
