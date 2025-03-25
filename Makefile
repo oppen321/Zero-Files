@@ -1,37 +1,54 @@
-include \$(TOPDIR)/rules.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=Zero-Files
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
+PKG_FLAGS:=hold essential nonshared
 
-include \$(INCLUDE_DIR)/package.mk
+PKG_LICENSE:=CC0-1.0
+PKG_MAINTAINER:=oppen321
 
-define Package/\$(PKG_NAME)
-  SECTION:=luci
-  CATEGORY:=LuCI
-  SUBMENU:=3. Applications
-  TITLE:=Zero-Files - Add Cellular Icon for Argon Theme
+include $(INCLUDE_DIR)/package.mk
+
+define Package/$(PKG_NAME)
+  SECTION:=base
+  CATEGORY:=Base system
+  TITLE:=Zero Files for Argon Theme
+  MAINTAINER:=oppen321
   DEPENDS:=+luci-theme-argon
 endef
 
-define Build/Compile
+define Package/$(PKG_NAME)/description
+ Custom files for OpenWrt Argon theme, adding sidebar icons.
 endef
 
-define Package/\$(PKG_NAME)/install
-	\$(INSTALL_DIR) \$(1)/www/luci-static/zero-files
-	\$(INSTALL_DATA) ./files/easeicon.css \$(1)/www/luci-static/zero-files/
-	\$(INSTALL_DATA) ./files/iconfont.* \$(1)/www/luci-static/zero-files/
-
-	\$(INSTALL_DIR) \$(1)/etc/uci-defaults
-	\$(INSTALL_BIN) ./files/zero-files-init \$(1)/etc/uci-defaults/
-
-	\$(INSTALL_DIR) \$(1)/usr/lib/lua/luci/view/themes/argon
-	\$(INSTALL_BIN) ./files/postinst.sh \$(1)/usr/lib/lua/luci/view/themes/argon/
+define Build/Prepare
+	mkdir -p $(PKG_BUILD_DIR)
 endef
 
-define Package/\$(PKG_NAME)/postinst
+define Build/Compile/Default
+
+endef
+Build/Compile = $(Build/Compile/Default)
+
+define Package/$(PKG_NAME)/install
+	$(CP) ./files/* $(1)/
+endef
+
+define Package/$(PKG_NAME)/postinst
 #!/bin/sh
-/etc/uci-defaults/zero-files-init
+
+HOST_SED="$(subst ${STAGING_DIR_HOST},$${STAGING_DIR_HOST},$(SED))"
+
+[ -n "$${IPKG_INSTROOT}" ] && {
+	$${HOST_SED} '/<link rel="shortcut icon" href="<%=media%>\/favicon.ico">/a         <link rel="stylesheet" href="<%=resource%>/zero-files/easeicon.css?t=1649313193968">' \
+		"$${IPKG_INSTROOT}/usr/lib/lua/luci/view/themes/argon/header.htm" \
+		"$${IPKG_INSTROOT}/usr/lib/lua/luci/view/themes/argon_dark/header.htm" \
+		"$${IPKG_INSTROOT}/usr/lib/lua/luci/view/themes/argon_light/header.htm" \
+		"$${IPKG_INSTROOT}/usr/lib/lua/luci/view/themes/argon_dark_purple/header.htm" \
+		"$${IPKG_INSTROOT}/usr/lib/lua/luci/view/themes/argon_light_green/header.htm"
+}
+true
 endef
 
-\$(eval \$(call BuildPackage,\$(PKG_NAME)))
+$(eval $(call BuildPackage,Zero-Files))
